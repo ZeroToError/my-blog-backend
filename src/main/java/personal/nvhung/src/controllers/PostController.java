@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import personal.nvhung.src.entities.Post;
 import personal.nvhung.src.exceptions.ResourceNotFoundException;
 import personal.nvhung.src.repositories.PostRepository;
+import personal.nvhung.src.utilities.UrlUtil;
 
 import javax.validation.Valid;
 
@@ -27,8 +28,15 @@ public class PostController {
         return postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
 
+    @GetMapping("/posts/get-by-title/{titleUrl}")
+    public Post getPostByTitleUrl(@PathVariable String titleUrl) {
+        return postRepository.findByTitleUrl(titleUrl).orElseThrow(() -> new ResourceNotFoundException("Post with title " + titleUrl + " not found"));
+    }
+
+
     @PostMapping("/posts")
     public Post createPost(@Valid @RequestBody Post post) {
+        post.setTitleUrl(UrlUtil.convertTitleToUrl(post.getTitle()));
         return postRepository.save(post);
     }
 

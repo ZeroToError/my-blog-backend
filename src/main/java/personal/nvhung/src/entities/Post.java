@@ -17,6 +17,11 @@ public class Post extends AuditModel {
     private String title;
 
     @NotNull
+    @Size(max = 100)
+    @Column(unique = true)
+    private String titleUrl;
+
+    @NotNull
     @Size(max = 250)
     private String description;
 
@@ -59,5 +64,13 @@ public class Post extends AuditModel {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTitleUrl() {
+        return titleUrl;
+    }
+
+    public void setTitleUrl(String titleUrl) {
+        this.titleUrl = titleUrl;
     }
 }
