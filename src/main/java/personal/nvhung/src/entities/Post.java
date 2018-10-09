@@ -29,6 +29,9 @@ public class Post extends AuditModel {
     @Column(columnDefinition = "text")
     private String content;
 
+    @Size(max = 100)
+    private String author;
+
     public Post() {
     }
 
@@ -72,5 +75,13 @@ public class Post extends AuditModel {
 
     public void setTitleUrl(String titleUrl) {
         this.titleUrl = titleUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
